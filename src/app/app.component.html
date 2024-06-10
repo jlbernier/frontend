@@ -1,0 +1,9 @@
+<div class="main">
+  <h1>Add a new vehicle</h1>
+  <app-vehicle-input (newDataEvent)="appendData($event)"></app-vehicle-input>
+
+  <h2>My vehicles list</h2>
+  @for(vehicle of vehicles; track vehicle) {
+    <app-vehicle-display [vehicle]="vehicle"></app-vehicle-display>
+  }
+</div>
