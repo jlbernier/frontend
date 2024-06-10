@@ -8,23 +8,24 @@ import { VehicleInputComponent } from './vehicle-input/vehicle-input.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-
   imports: [RouterOutlet, VehicleInputComponent, VehicleDisplayComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   vehicles: Vehicle[] = [];
+
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get<Vehicle[]>(
-      "http://localhost:8080/vehicles"
-    ).subscribe(data => this.vehicles = data);
+    this.http.get<Vehicle[]>("http://localhost:8080/vehicles")
+      .subscribe(data => {
+        this.vehicles = data;
+        console.table(this.vehicles);
+      });
   }
 
-  appendData(newVehicle: any): void {
+  appendData(newVehicle: Vehicle): void {
     this.vehicles.push(newVehicle);
   }
-
 }

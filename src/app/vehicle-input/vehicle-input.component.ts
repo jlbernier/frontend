@@ -10,21 +10,20 @@ import { Vehicle } from './../vehicle';
   standalone: true,
   imports: [MatInputModule, MatFormFieldModule, FormsModule],
   templateUrl: './vehicle-input.component.html',
-  styleUrl: './vehicle-input.component.css'
+  styleUrls: ['./vehicle-input.component.css']
 })
 export class VehicleInputComponent {
 
   @ViewChild("vehicleForm") vehicleForm!: NgForm;
 
-  @Output()  newDataEvent = new EventEmitter();
+  @Output() newDataEvent = new EventEmitter();
 
-  constructor (private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   onSubmit(): void {
     this.http.post<Vehicle>(
       "http://localhost:8080/vehicles",
       this.vehicleForm.value
-    ).subscribe(data => this.newDataEvent.emit())
+    ).subscribe(data => this.newDataEvent.emit(data));
   }
-
 }
